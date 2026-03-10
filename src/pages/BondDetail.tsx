@@ -7,6 +7,13 @@ const currency = new Intl.NumberFormat("en-US", {
   currency: "USD",
 });
 
+const currencyWhole = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  maximumFractionDigits: 0,
+  minimumFractionDigits: 0,
+});
+
 export default function BondDetail() {
   const { id } = useParams();
   const { findBondById } = useContext(BondContext)!;
@@ -61,7 +68,7 @@ export default function BondDetail() {
             <strong>Status</strong> {bond.status}
           </p>
           <p>
-            <strong>Bond amount</strong> {currency.format(bond.bondAmount)}
+            <strong>Bond amount</strong> {currencyWhole.format(bond.bondAmount)}
           </p>
           <p>
             <strong>Premium</strong> {currency.format(bond.premium)}
