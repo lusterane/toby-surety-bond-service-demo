@@ -1,6 +1,7 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { BondContext } from "../context/BondContext";
+import { useToast } from "../context/ToastContext";
 
 const currency = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -21,6 +22,7 @@ export default function RiskProposal() {
     useContext(BondContext)!;
   const bond = findBondById(id!);
 
+  const { showToast } = useToast();
   const [premiumRate, setPremiumRate] = useState<number>(2.5);
 
   const calculatedPremium = bond
@@ -41,11 +43,13 @@ export default function RiskProposal() {
   const handleApprove = () => {
     updateBondPremium(bond.id, calculatedPremium);
     updateBondStatus(bond.id, "Active");
+    showToast(`Bond ${bond.id} approved`);
     navigate("/underwriting");
   };
 
   const handleDecline = () => {
     updateBondStatus(bond.id, "Cancelled");
+    showToast(`Bond ${bond.id} declined`);
     navigate("/underwriting");
   };
 
