@@ -3,6 +3,7 @@ import AppShell from "./components/layout/AppShell";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import { BondProvider } from "./context/BondContext";
+import BondDetail from "./pages/BondDetail";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Routes>
           <Route element={<AppShell />}>
             <Route path="/" element={<Dashboard />} />
+            <Route path="/bonds/:id" element={<BondDetail />} />
           </Route>
         </Routes>
       </Router>

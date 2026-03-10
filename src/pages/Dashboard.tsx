@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { BondContext } from "../context/BondContext";
 import BondCard from "../components/BondCard";
 export default function Dashboard() {
-  const bonds = useContext(BondContext);
+  const { bonds } = useContext(BondContext)!;
   return (
     <>
       <h1>Bond Portfolio</h1>
