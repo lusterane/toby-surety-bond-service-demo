@@ -5,6 +5,8 @@ import Dashboard from "./pages/Dashboard";
 import { BondProvider } from "./context/BondContext";
 import BondDetail from "./pages/BondDetail";
 import BondApplication from "./pages/BondApplication";
+import UnderwriterDashboard from "./pages/UnderwriterDashboard";
+import RiskProposal from "./pages/RiskProposal";
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
             <Route path="/" element={<Dashboard />} />
             <Route path="/bonds/:id" element={<BondDetail />} />
             <Route path="/bonds/new" element={<BondApplication />} />
+            <Route path="/underwriting" element={<UnderwriterDashboard />} />
+            <Route path="/underwriting/:id" element={<RiskProposal />} />
           </Route>
         </Routes>
       </Router>

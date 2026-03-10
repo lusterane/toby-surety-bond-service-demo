@@ -11,6 +11,10 @@ export default function Sidebar() {
           <span className="nav-icon">&#9632;</span>
           Dashboard
         </NavLink>
+        <NavLink to="/underwriting">
+          <span className="nav-icon">&#9878;</span>
+          Underwriting
+        </NavLink>
         <NavLink to="/bonds/new">
           <span className="nav-icon">+</span>
           New Bond

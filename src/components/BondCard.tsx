@@ -8,9 +8,9 @@ const currencyWhole = new Intl.NumberFormat("en-US", {
   minimumFractionDigits: 0,
 });
 
-export default function BondCard({ bond }: { bond: Bond }) {
+export default function BondCard({ bond, linkPrefix = "/bonds" }: { bond: Bond; linkPrefix?: string }) {
   return (
-    <Link to={`/bonds/${bond.id}`} className="bond-card-link">
+    <Link to={`${linkPrefix}/${bond.id}`} className="bond-card-link">
       <article className="bond-card bond-card-dashboard">
         <h2 className="bond-card-title">{bond.id}</h2>
         <div className="bond-card-row">
