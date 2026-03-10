@@ -16,8 +16,8 @@ export default function Sidebar() {
           Underwriting
         </NavLink>
         <NavLink to="/bonds/new">
-          <span className="nav-icon">+</span>
-          New Bond
+          <span className="nav-icon">📄</span>
+          New Bond (Principal)
         </NavLink>
       </nav>
     </aside>

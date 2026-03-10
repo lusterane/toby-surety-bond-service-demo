@@ -2,9 +2,11 @@ import { useContext, useState } from "react";
 import type { Principal, Obligee, Bond } from "../types";
 import { generateBondNumber } from "../data/mockData";
 import { BondContext } from "../context/BondContext";
+import { useToast } from "../context/ToastContext";
 import { useNavigate } from "react-router-dom";
 export default function BondApplication() {
   const { createBond } = useContext(BondContext)!;
+  const { showToast } = useToast();
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [principal, setPrincipal] = useState<Principal>({
@@ -32,7 +34,7 @@ export default function BondApplication() {
       maximumFractionDigits: 0,
     }).format(n);
 
-  const stepLabels = ["Principal Info", "Bond Requirements", "Review & Issue"];
+  const stepLabels = ["Principal Info", "Bond Requirements", "Review"];
 
   function displayStepIndicator() {
     return (
@@ -254,7 +256,7 @@ export default function BondApplication() {
             </div>
             <div className="bond-application-premium-banner bond-application-premium-banner--review">
               <span className="bond-application-premium-banner__label">
-                Annual Premium
+                Annual Premium (Estimated)
               </span>
               <span className="bond-application-premium-banner__amount">
                 {formatDollars(premiumCost)}
@@ -281,6 +283,7 @@ export default function BondApplication() {
       status: "Underwriting",
     };
     createBond(bond);
+    showToast("Bond submitted to underwriting queue successfully.");
     navigate(`/`);
   }
 
@@ -339,7 +342,7 @@ export default function BondApplication() {
               className="btn btn-primary"
               onClick={handleIssueBond}
             >
-              Issue Bond
+              Submit to Underwriting
             </button>
           </div>
         );
@@ -348,16 +351,18 @@ export default function BondApplication() {
   }
 
   return (
-    <div className="bond-application">
-      <header className="bond-application-header">
-        <h1 className="bond-application-title">Bond Application</h1>
-        <p className="bond-application-subtitle">
-          Step {step}: {stepLabels[step - 1]}
-        </p>
-      </header>
-      {displayStepIndicator()}
-      {displayStepForm()}
-      {displayStepButtons()}
-    </div>
+    <>
+      <div className="bond-application">
+        <header className="bond-application-header">
+          <h1 className="bond-application-title">Bond Application</h1>
+          <p className="bond-application-subtitle">
+            Step {step}: {stepLabels[step - 1]}
+          </p>
+        </header>
+        {displayStepIndicator()}
+        {displayStepForm()}
+        {displayStepButtons()}
+      </div>
+    </>
   );
 }

@@ -3,6 +3,7 @@ import AppShell from "./components/layout/AppShell";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import BondPortfolio from "./pages/BondPortfolio";
 import { BondProvider } from "./context/BondContext";
+import { ToastProvider } from "./context/ToastContext";
 import BondDetail from "./pages/BondDetail";
 import BondApplication from "./pages/BondApplication";
 import UnderwriterDashboard from "./pages/UnderwriterDashboard";
@@ -10,6 +11,7 @@ import RiskProposal from "./pages/RiskProposal";
 
 function App() {
   return (
+    <ToastProvider>
     <BondProvider>
       <Router>
         <Routes>
@@ -23,6 +25,7 @@ function App() {
         </Routes>
       </Router>
     </BondProvider>
+    </ToastProvider>
   );
 }
 
