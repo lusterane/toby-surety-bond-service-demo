@@ -1,5 +1,7 @@
 # Surety Bond Service Demo
 
+[🟢 Live demo](https://surety-demo.netlify.app)
+
 A simple dashboard to explore how surety bond processes work. Built to understand the flow from both sides:
 
 - **Principals** — view bonds, apply for new ones, see status
@@ -13,5 +15,3 @@ React + TypeScript + Vite.
 npm install
 npm run dev
 ```
-
-[GitHub](https://github.com/lusterane/toby-surety-bond-service-demo)
