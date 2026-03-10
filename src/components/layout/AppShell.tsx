@@ -7,6 +7,9 @@ export default function AppShell() {
 
   return (
     <div className="app-shell">
+      <div className="mobile-banner">
+        This site is not optimized for mobile. Please view on desktop for the best experience.
+      </div>
       <div className="app-shell-body">
         <Sidebar />
         <main className="app-main">
