@@ -3,7 +3,7 @@ export default function Sidebar() {
   return (
     <aside className="sidebar">
       <div className="sidebar-logo">
-        <h1>Toby Surety Bond Service</h1>
+        <h1>Toby Surety Bonds</h1>
         <span>Bond Servicing Demo</span>
       </div>
       <nav>
