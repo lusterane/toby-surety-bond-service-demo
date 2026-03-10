@@ -1,7 +1,6 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { useContext, useState, useMemo } from "react";
+import { useContext, useState } from "react";
 import { BondContext } from "../context/BondContext";
-import { calculateRiskAssessment } from "../utils/riskScoring";
 
 const currency = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -22,17 +21,11 @@ export default function RiskProposal() {
     useContext(BondContext)!;
   const bond = findBondById(id!);
 
-  const assessment = useMemo(
-    () => (bond ? calculateRiskAssessment(bond) : null),
-    [bond]
-  );
+  const [premiumRate, setPremiumRate] = useState<number>(2.5);
 
-  const suggestedPremium = assessment
-    ? Math.round(bond!.bondAmount * assessment.suggestedPremiumRate)
+  const calculatedPremium = bond
+    ? Math.round(bond.bondAmount * (premiumRate / 100))
     : 0;
-
-  const [adjustedPremium, setAdjustedPremium] = useState<number | null>(null);
-  const premiumValue = adjustedPremium ?? suggestedPremium;
 
   if (!bond || bond.status !== "Underwriting") {
     return (
@@ -46,7 +39,7 @@ export default function RiskProposal() {
   }
 
   const handleApprove = () => {
-    updateBondPremium(bond.id, premiumValue);
+    updateBondPremium(bond.id, calculatedPremium);
     updateBondStatus(bond.id, "Active");
     navigate("/underwriting");
   };
@@ -104,55 +97,23 @@ export default function RiskProposal() {
             {bond.expirationDate.toLocaleDateString()}
           </p>
         </div>
-      </div>
-
-      <div className="bond-detail-cards" style={{ marginTop: "1rem" }}>
-        <div className="bond-card">
-          <h2>Risk Assessment</h2>
-          <div className="risk-score-display">
-            <span className="risk-score-number">{assessment!.score}</span>
-            <span
-              className="risk-score-rating"
-              data-rating={assessment!.rating.toLowerCase()}
-            >
-              {assessment!.rating} Risk
-            </span>
-          </div>
-          <div className="risk-breakdown">
-            <p>
-              <strong>Credit score</strong>{" "}
-              {assessment!.breakdown.creditScoreComponent} / 60
-            </p>
-            <p>
-              <strong>Years in business</strong>{" "}
-              {assessment!.breakdown.yearsInBusinessComponent} / 25
-            </p>
-            <p>
-              <strong>Bond amount</strong>{" "}
-              {assessment!.breakdown.bondAmountComponent} / 15
-            </p>
-          </div>
-        </div>
 
         <div className="bond-card risk-premium-card">
           <h2>Premium</h2>
-          <p>
-            <strong>Suggested rate</strong>{" "}
-            {(assessment!.suggestedPremiumRate * 100).toFixed(2)}%
-          </p>
-          <p>
-            <strong>Suggested amount</strong> {currency.format(suggestedPremium)}
-          </p>
           <div className="risk-premium-input-group">
-            <label htmlFor="adjusted-premium">Adjusted premium ($)</label>
+            <label htmlFor="premium-rate">Premium rate (%)</label>
             <input
-              id="adjusted-premium"
+              id="premium-rate"
               type="number"
               min={0}
-              value={premiumValue}
-              onChange={(e) => setAdjustedPremium(Number(e.target.value))}
+              step={0.1}
+              value={premiumRate}
+              onChange={(e) => setPremiumRate(Number(e.target.value))}
             />
           </div>
+          <p style={{ marginTop: "0.75rem" }}>
+            <strong>Premium amount</strong> {currency.format(calculatedPremium)}
+          </p>
         </div>
       </div>
 
