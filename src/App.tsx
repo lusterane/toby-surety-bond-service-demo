@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import { BondProvider } from "./context/BondContext";
 import BondDetail from "./pages/BondDetail";
+import BondApplication from "./pages/BondApplication";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route element={<AppShell />}>
             <Route path="/" element={<Dashboard />} />
             <Route path="/bonds/:id" element={<BondDetail />} />
+            <Route path="/bonds/new" element={<BondApplication />} />
           </Route>
         </Routes>
       </Router>
