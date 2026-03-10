@@ -56,6 +56,7 @@ export default function BondApplication() {
       case 1:
         return (
           <div className="bond-application-form-card">
+            <h2 className="bond-application-form-card-title">Principal Info</h2>
             <form className="bond-application-form">
               <div className="bond-application-form-row">
                 <div className="bond-application-form-group">
@@ -145,62 +146,75 @@ export default function BondApplication() {
         return (
           <div className="bond-application-form-card">
             <form className="bond-application-form">
-              <div className="bond-application-form-row">
-                <div className="bond-application-form-group bond-application-form-group--full">
-                  <label htmlFor="bondAmount">Bond Amount</label>
-                  <input
-                    type="number"
-                    id="bondAmount"
-                    name="bondAmount"
-                    min={0}
-                    value={boundAmount === 0 ? "" : boundAmount}
-                    onChange={(e) => {
-                      const raw = e.target.value;
-                      if (raw === "") {
-                        setBoundAmount(0);
-                      } else {
-                        const n = Number(raw);
-                        if (!Number.isNaN(n) && n >= 0) setBoundAmount(n);
+              <div className="bond-application-form-section">
+                <div className="bond-application-form-row">
+                  <div className="bond-application-form-group bond-application-form-group--full">
+                    <label htmlFor="bondAmount">Bond Amount</label>
+                    <div className="bond-application-form-currency">
+                      <input
+                        type="number"
+                        id="bondAmount"
+                        name="bondAmount"
+                        min={0}
+                        value={boundAmount === 0 ? "" : boundAmount}
+                        onChange={(e) => {
+                          const raw = e.target.value;
+                          if (raw === "") {
+                            setBoundAmount(0);
+                          } else {
+                            const n = Number(raw);
+                            if (!Number.isNaN(n) && n >= 0) setBoundAmount(n);
+                          }
+                        }}
+                      />
+                      <span className="bond-application-form-currency-display">
+                        {formatDollars(boundAmount)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr className="bond-application-form-divider" />
+              <div className="bond-application-form-section">
+                <div className="bond-application-form-row">
+                  <div className="bond-application-form-group">
+                    <label htmlFor="obligeeName">Obligee Name</label>
+                    <input
+                      type="text"
+                      id="obligeeName"
+                      placeholder="e.g. Cool Company Inc"
+                      value={obligee.name}
+                      onChange={(e) =>
+                        setObligee({ ...obligee, name: e.target.value })
                       }
-                    }}
-                  />
+                    />
+                  </div>
+                  <div className="bond-application-form-group">
+                    <label htmlFor="obligeeAddress">Obligee Address</label>
+                    <input
+                      type="text"
+                      id="obligeeAddress"
+                      placeholder="e.g. 456 Place St, Town, USA"
+                      value={obligee.address}
+                      onChange={(e) =>
+                        setObligee({ ...obligee, address: e.target.value })
+                      }
+                    />
+                  </div>
                 </div>
               </div>
-              <div className="bond-application-form-row">
-                <div className="bond-application-form-group">
-                  <label htmlFor="obligeeName">Obligee Name</label>
-                  <input
-                    type="text"
-                    id="obligeeName"
-                    placeholder="e.g. Cool Company Inc"
-                    value={obligee.name}
-                    onChange={(e) =>
-                      setObligee({ ...obligee, name: e.target.value })
-                    }
-                  />
-                </div>
-                <div className="bond-application-form-group">
-                  <label htmlFor="obligeeAddress">Obligee Address</label>
-                  <input
-                    type="text"
-                    id="obligeeAddress"
-                    placeholder="e.g. 456 Place St, Town, USA"
-                    value={obligee.address}
-                    onChange={(e) =>
-                      setObligee({ ...obligee, address: e.target.value })
-                    }
-                  />
-                </div>
-              </div>
-              <div className="bond-application-form-row">
-                <div className="bond-application-form-group bond-application-form-group--full">
-                  <label htmlFor="effectiveDate">Effective Date</label>
-                  <input
-                    type="date"
-                    id="effectiveDate"
-                    value={effectiveDate}
-                    onChange={(e) => setEffectiveDate(e.target.value)}
-                  />
+              <hr className="bond-application-form-divider" />
+              <div className="bond-application-form-section">
+                <div className="bond-application-form-row">
+                  <div className="bond-application-form-group bond-application-form-group--full">
+                    <label htmlFor="effectiveDate">Effective Date</label>
+                    <input
+                      type="date"
+                      id="effectiveDate"
+                      value={effectiveDate}
+                      onChange={(e) => setEffectiveDate(e.target.value)}
+                    />
+                  </div>
                 </div>
               </div>
               <div className="bond-application-premium-banner">

@@ -445,6 +445,35 @@ a {
   margin-bottom: 1.5rem;
 }
 
+.bond-application-form-card-title {
+  margin: 0 0 1.25rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.bond-application-form-divider {
+  margin: 1.25rem 0;
+  border: none;
+  border-top: 1px solid var(--color-border);
+}
+
+.bond-application-form-currency {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.bond-application-form-currency input {
+  max-width: 12rem;
+}
+
+.bond-application-form-currency-display {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
 .bond-application-form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
