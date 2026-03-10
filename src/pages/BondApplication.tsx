@@ -32,201 +32,235 @@ export default function BondApplication() {
       maximumFractionDigits: 0,
     }).format(n);
 
-  function displayStep() {
-    switch (step) {
-      case 1:
-        return <div>1. Principal Info</div>;
-      case 2:
-        return <div>2. Bond Requirements</div>;
-      case 3:
-        return <div>3. Review & Issue</div>;
-    }
+  const stepLabels = ["Principal Info", "Bond Requirements", "Review & Issue"];
+
+  function displayStepIndicator() {
+    return (
+      <div className="bond-application-steps">
+        {stepLabels.map((label, i) => (
+          <span
+            key={label}
+            className={`bond-application-step ${step === i + 1 ? "active" : ""}`}
+          >
+            {i + 1}. {label}
+          </span>
+        ))}
+      </div>
+    );
   }
 
   function displayStepForm() {
     switch (step) {
       case 1:
         return (
-          <form>
-            <div>
-              <label>Company Name</label>
-              <input
-                type="text"
-                id="companyName"
-                value={principal.name}
-                onChange={(e) =>
-                  setPrincipal({ ...principal, name: e.target.value })
-                }
-                placeholder="e.g. Construction LLC"
-                name="name"
-              />
-            </div>
-            <div>
-              <label>Address</label>
-              <input
-                type="text"
-                id="address"
-                value={principal.address}
-                onChange={(e) =>
-                  setPrincipal({ ...principal, address: e.target.value })
-                }
-                placeholder="e.g. 123 Place St, Town, USA"
-                name="address"
-              />
-            </div>
-            <div>
-              <label>Credit Score</label>
-              <input
-                type="number"
-                id="creditScore"
-                value={principal.creditScore}
-                onChange={(e) => {
-                  const raw = e.target.value;
-                  if (raw === "") {
-                    setPrincipal({ ...principal, creditScore: 0 });
-                  } else {
-                    const n = Number(raw);
-                    if (!Number.isNaN(n)) {
-                      setPrincipal({ ...principal, creditScore: n });
+          <div className="bond-application-form-card">
+            <form className="bond-application-form">
+              <div className="bond-application-form-row">
+                <div className="bond-application-form-group">
+                  <label htmlFor="companyName">Company Name</label>
+                  <input
+                    type="text"
+                    id="companyName"
+                    value={principal.name}
+                    onChange={(e) =>
+                      setPrincipal({ ...principal, name: e.target.value })
                     }
-                  }
-                }}
-                name="creditScore"
-              />
-            </div>
-            <div>
-              <label>Years in Business</label>
-              <input
-                type="number"
-                id="yearsInBusiness"
-                min={0}
-                max={100}
-                value={principal.yearsInBusiness}
-                onChange={(e) => {
-                  const raw = e.target.value;
-                  if (raw === "") {
-                    setPrincipal({ ...principal, yearsInBusiness: 0 });
-                  } else {
-                    const n = Number(raw);
-                    if (!Number.isNaN(n)) {
-                      setPrincipal({ ...principal, yearsInBusiness: n });
+                    placeholder="e.g. Construction LLC"
+                    name="name"
+                  />
+                </div>
+                <div className="bond-application-form-group">
+                  <label htmlFor="principalAddress">Address</label>
+                  <input
+                    type="text"
+                    id="principalAddress"
+                    value={principal.address}
+                    onChange={(e) =>
+                      setPrincipal({ ...principal, address: e.target.value })
                     }
-                  }
-                }}
-                name="yearsInBusiness"
-              />
-            </div>
-          </form>
+                    placeholder="e.g. 123 Place St, Town, USA"
+                    name="address"
+                  />
+                </div>
+              </div>
+              <div className="bond-application-form-row">
+                <div className="bond-application-form-group">
+                  <label htmlFor="creditScore">Credit Score</label>
+                  <input
+                    type="number"
+                    id="creditScore"
+                    value={
+                      principal.creditScore === 0 ? "" : principal.creditScore
+                    }
+                    onChange={(e) => {
+                      const raw = e.target.value;
+                      if (raw === "") {
+                        setPrincipal({ ...principal, creditScore: 0 });
+                      } else {
+                        const n = Number(raw);
+                        if (!Number.isNaN(n)) {
+                          setPrincipal({ ...principal, creditScore: n });
+                        }
+                      }
+                    }}
+                    name="creditScore"
+                  />
+                </div>
+                <div className="bond-application-form-group">
+                  <label htmlFor="yearsInBusiness">Years in Business</label>
+                  <input
+                    type="number"
+                    id="yearsInBusiness"
+                    min={0}
+                    max={100}
+                    value={
+                      principal.yearsInBusiness === 0
+                        ? ""
+                        : principal.yearsInBusiness
+                    }
+                    onChange={(e) => {
+                      const raw = e.target.value;
+                      if (raw === "") {
+                        setPrincipal({ ...principal, yearsInBusiness: 0 });
+                      } else {
+                        const n = Number(raw);
+                        if (!Number.isNaN(n)) {
+                          setPrincipal({
+                            ...principal,
+                            yearsInBusiness: n,
+                          });
+                        }
+                      }
+                    }}
+                    name="yearsInBusiness"
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
         );
       case 2:
         return (
-          <form>
-            <div>
-              <label>Bond Amount</label>
-              <input
-                type="number"
-                id="bondAmount"
-                name="bondAmount"
-                min={0}
-                value={boundAmount === 0 ? "" : boundAmount}
-                onChange={(e) => {
-                  const raw = e.target.value;
-                  if (raw === "") {
-                    setBoundAmount(0);
-                  } else {
-                    const n = Number(raw);
-                    if (!Number.isNaN(n) && n >= 0) setBoundAmount(n);
-                  }
-                }}
-              />
-              <p
-                style={{
-                  marginTop: "0.25rem",
-                  color: "var(--muted)",
-                  fontSize: "0.9rem",
-                }}
-              >
-                Bond amount: {formatDollars(boundAmount)}. Premium cost (
-                {PREMIUM_RATE * 100}%): {formatDollars(premiumCost)}.
-              </p>
-            </div>
-            <div>
-              <label>Obligee Name</label>
-              <input
-                type="text"
-                id="name"
-                value={obligee.name}
-                onChange={(e) =>
-                  setObligee({ ...obligee, name: e.target.value })
-                }
-              />
-            </div>
-            <div>
-              <label>Obligee Address</label>
-              <input
-                type="text"
-                id="address"
-                value={obligee.address}
-                onChange={(e) =>
-                  setObligee({ ...obligee, address: e.target.value })
-                }
-              />
-            </div>
-            <div>
-              <label>Effective Date</label>
-              <input
-                type="date"
-                value={effectiveDate}
-                onChange={(e) => setEffectiveDate(e.target.value)}
-              />
-            </div>
-          </form>
+          <div className="bond-application-form-card">
+            <form className="bond-application-form">
+              <div className="bond-application-form-row">
+                <div className="bond-application-form-group bond-application-form-group--full">
+                  <label htmlFor="bondAmount">Bond Amount</label>
+                  <input
+                    type="number"
+                    id="bondAmount"
+                    name="bondAmount"
+                    min={0}
+                    value={boundAmount === 0 ? "" : boundAmount}
+                    onChange={(e) => {
+                      const raw = e.target.value;
+                      if (raw === "") {
+                        setBoundAmount(0);
+                      } else {
+                        const n = Number(raw);
+                        if (!Number.isNaN(n) && n >= 0) setBoundAmount(n);
+                      }
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="bond-application-form-row">
+                <div className="bond-application-form-group">
+                  <label htmlFor="obligeeName">Obligee Name</label>
+                  <input
+                    type="text"
+                    id="obligeeName"
+                    placeholder="e.g. Cool Company Inc"
+                    value={obligee.name}
+                    onChange={(e) =>
+                      setObligee({ ...obligee, name: e.target.value })
+                    }
+                  />
+                </div>
+                <div className="bond-application-form-group">
+                  <label htmlFor="obligeeAddress">Obligee Address</label>
+                  <input
+                    type="text"
+                    id="obligeeAddress"
+                    placeholder="e.g. 456 Place St, Town, USA"
+                    value={obligee.address}
+                    onChange={(e) =>
+                      setObligee({ ...obligee, address: e.target.value })
+                    }
+                  />
+                </div>
+              </div>
+              <div className="bond-application-form-row">
+                <div className="bond-application-form-group bond-application-form-group--full">
+                  <label htmlFor="effectiveDate">Effective Date</label>
+                  <input
+                    type="date"
+                    id="effectiveDate"
+                    value={effectiveDate}
+                    onChange={(e) => setEffectiveDate(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="bond-application-premium-banner">
+                Estimated Premium: {formatDollars(premiumCost)} (
+                {(PREMIUM_RATE * 100).toFixed(1)}% of{" "}
+                {formatDollars(boundAmount)})
+              </div>
+            </form>
+          </div>
         );
       case 3:
         return (
-          <div className="bond-detail-cards">
-            <div className="bond-card">
-              <h2>Principal</h2>
-              <p>
-                <strong>Name</strong> {principal.name}
-              </p>
-              <p>
-                <strong>Address</strong> {principal.address}
-              </p>
-              <p>
-                <strong>Credit score</strong> {principal.creditScore}
-              </p>
-              <p>
-                <strong>Years in business</strong> {principal.yearsInBusiness}
-              </p>
-            </div>
+          <>
+            <div className="bond-detail-cards">
+              <div className="bond-card">
+                <h2>Principal</h2>
+                <p>
+                  <strong>Name</strong> {principal.name}
+                </p>
+                <p>
+                  <strong>Address</strong> {principal.address}
+                </p>
+                <p>
+                  <strong>Credit score</strong> {principal.creditScore}
+                </p>
+                <p>
+                  <strong>Years in business</strong> {principal.yearsInBusiness}
+                </p>
+              </div>
 
-            <div className="bond-card">
-              <h2>Obligee</h2>
-              <p>
-                <strong>Name</strong> {obligee.name}
-              </p>
-              <p>
-                <strong>Address</strong> {obligee.address}
-              </p>
-            </div>
+              <div className="bond-card">
+                <h2>Obligee</h2>
+                <p>
+                  <strong>Name</strong> {obligee.name}
+                </p>
+                <p>
+                  <strong>Address</strong> {obligee.address}
+                </p>
+              </div>
 
-            <div className="bond-card">
-              <h2>Bond details</h2>
-              <p>
-                <strong>Bond amount</strong> {formatDollars(boundAmount)}
-              </p>
-              <p>
-                <strong>Premium</strong> {formatDollars(premiumCost)}
-              </p>
-              <p>
-                <strong>Effective date</strong>{" "}
-                {effectiveDate
-                  ? new Date(effectiveDate).toLocaleDateString()
-                  : "—"}
-              </p>
+              <div className="bond-card">
+                <h2>Bond details</h2>
+                <p>
+                  <strong>Bond amount</strong> {formatDollars(boundAmount)}
+                </p>
+                <p>
+                  <strong>Effective date</strong>{" "}
+                  {effectiveDate
+                    ? new Date(effectiveDate).toLocaleDateString()
+                    : "—"}
+                </p>
+              </div>
             </div>
-          </div>
+            <div className="bond-application-premium-banner bond-application-premium-banner--review">
+              <span className="bond-application-premium-banner__label">
+                Annual Premium
+              </span>
+              <span className="bond-application-premium-banner__amount">
+                {formatDollars(premiumCost)}
+              </span>
+            </div>
+          </>
         );
     }
   }
@@ -247,15 +281,17 @@ export default function BondApplication() {
       status: "Underwriting",
     };
     createBond(bond);
-    navigate(`/bonds/${bond.id}`);
+    navigate(`/`);
   }
 
   function displayStepButtons() {
     switch (step) {
       case 1:
         return (
-          <>
+          <div className="bond-application-actions">
             <button
+              type="button"
+              className="btn btn-primary"
               disabled={
                 !principal.name ||
                 !principal.address ||
@@ -266,39 +302,62 @@ export default function BondApplication() {
             >
               Next
             </button>
-          </>
+          </div>
         );
       case 2:
         return (
-          <>
-            <button onClick={() => setStep((prev) => prev - 1)}>Back</button>{" "}
+          <div className="bond-application-actions">
             <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={() => setStep((prev) => prev - 1)}
+            >
+              Back
+            </button>
+            <button
+              type="button"
+              className="btn btn-primary"
               disabled={!obligee.name || !obligee.address || !effectiveDate}
               onClick={() => setStep((prev) => prev + 1)}
             >
               Next
             </button>
-          </>
+          </div>
         );
       case 3:
         return (
-          <>
-            <button onClick={() => setStep((prev) => prev - 1)}>Back</button>{" "}
-            <button onClick={handleIssueBond}>Issue Bond</button>
-          </>
+          <div className="bond-application-actions">
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={() => setStep((prev) => prev - 1)}
+            >
+              Back
+            </button>
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={handleIssueBond}
+            >
+              Issue Bond
+            </button>
+          </div>
         );
     }
-    return;
+    return null;
   }
 
   return (
-    <>
-      <div>
-        <h1>Bond Application</h1>
-        <div>{displayStep()}</div>
-        <div>{displayStepForm()}</div>
-        <div>{displayStepButtons()}</div>
-      </div>
-    </>
+    <div className="bond-application">
+      <header className="bond-application-header">
+        <h1 className="bond-application-title">Bond Application</h1>
+        <p className="bond-application-subtitle">
+          Step {step}: {stepLabels[step - 1]}
+        </p>
+      </header>
+      {displayStepIndicator()}
+      {displayStepForm()}
+      {displayStepButtons()}
+    </div>
   );
 }

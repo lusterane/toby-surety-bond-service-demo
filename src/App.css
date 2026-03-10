@@ -291,3 +291,225 @@ a {
   font-weight: 500;
   color: var(--color-text-muted);
 }
+
+/* Bond application page */
+.bond-application {
+  max-width: 720px;
+}
+
+.bond-application-header {
+  margin-bottom: 1.75rem;
+}
+
+.bond-application-title {
+  margin: 0 0 0.25rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+
+.bond-application-subtitle {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--color-text-muted);
+}
+
+.bond-application-steps {
+  display: flex;
+  margin-bottom: 1.5rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.bond-application-step {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-align: center;
+  border-right: 1px solid var(--color-border);
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.bond-application-step:last-child {
+  border-right: none;
+}
+
+.bond-application-step.active {
+  color: var(--color-primary);
+  background: rgba(37, 99, 235, 0.08);
+}
+
+.bond-application-form-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.5rem 1.75rem;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 1.5rem;
+}
+
+.bond-application-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.bond-application-form-row:last-of-type {
+  margin-bottom: 0;
+}
+
+.bond-application-form-group {
+  margin-bottom: 0;
+}
+
+.bond-application-form-group--full {
+  grid-column: 1 / -1;
+}
+
+.bond-application-form-group label {
+  display: block;
+  margin-bottom: 0.375rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+.bond-application-form-group input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9375rem;
+  color: var(--color-text);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  box-sizing: border-box;
+}
+
+.bond-application-form-group input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.bond-application-form-group input::placeholder {
+  color: var(--color-text-muted);
+  opacity: 0.8;
+}
+
+.bond-application-form-hint {
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+.bond-application-premium-banner {
+  margin-top: 1.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-primary-dark);
+  background: rgba(37, 99, 235, 0.1);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--color-primary);
+}
+
+.bond-application-premium-banner--review {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  text-align: center;
+}
+
+.bond-application-premium-banner--review .bond-application-premium-banner__label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-primary-dark);
+}
+
+.bond-application-premium-banner--review .bond-application-premium-banner__amount {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-primary);
+}
+
+.bond-application-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.bond-application-actions .btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.bond-application-actions .btn-primary {
+  background: var(--color-primary);
+  color: white;
+}
+
+.bond-application-actions .btn-primary:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+}
+
+.bond-application-actions .btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.bond-application-actions .btn-secondary {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.bond-application-actions .btn-secondary:hover {
+  background: var(--color-bg);
+  border-color: #cbd5e1;
+}
+
+.bond-application .bond-detail-cards .bond-card h2 {
+  margin: 0 0 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.bond-application .bond-detail-cards .bond-card p {
+  font-size: 0.9375rem;
+}
+
+.bond-application .bond-detail-cards .bond-card strong {
+  display: inline-block;
+  min-width: 7rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+.bond-application .bond-detail-cards {
+  margin-bottom: 1.5rem;
+}
