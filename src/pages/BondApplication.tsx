@@ -179,12 +179,47 @@ export default function BondApplication() {
         );
       case 3:
         return (
-          <form>
-            <div>
-              <label>Review</label>
-              <input type="text" id="review" name="review" />
+          <div className="bond-detail-cards">
+            <div className="bond-card">
+              <h2>Principal</h2>
+              <p>
+                <strong>Name</strong> {principal.name}
+              </p>
+              <p>
+                <strong>Address</strong> {principal.address}
+              </p>
+              <p>
+                <strong>Credit score</strong> {principal.creditScore}
+              </p>
+              <p>
+                <strong>Years in business</strong> {principal.yearsInBusiness}
+              </p>
             </div>
-          </form>
+
+            <div className="bond-card">
+              <h2>Obligee</h2>
+              <p>
+                <strong>Name</strong> {obligee.name}
+              </p>
+              <p>
+                <strong>Address</strong> {obligee.address}
+              </p>
+            </div>
+
+            <div className="bond-card">
+              <h2>Bond details</h2>
+              <p>
+                <strong>Bond amount</strong> {formatDollars(boundAmount)}
+              </p>
+              <p>
+                <strong>Premium</strong> {formatDollars(premiumCost)}
+              </p>
+              <p>
+                <strong>Effective date</strong>{" "}
+                {effectiveDate ? new Date(effectiveDate).toLocaleDateString() : "—"}
+              </p>
+            </div>
+          </div>
         );
     }
   }
