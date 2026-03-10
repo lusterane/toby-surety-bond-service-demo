@@ -1,7 +1,7 @@
 import type { Bond } from "../types";
 export const initialBonds: Bond[] = [
   {
-    id: "1",
+    id: "SB-2026-001",
     bondAmount: 100000,
     premium: 1000,
     effectiveDate: new Date(),

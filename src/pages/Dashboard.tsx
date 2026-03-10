@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { BondContext } from "../context/BondContext";
+import BondCard from "../components/BondCard";
 export default function Dashboard() {
   const bonds = useContext(BondContext);
   return (
@@ -9,6 +10,11 @@ export default function Dashboard() {
         {bonds.length
           ? `${bonds.length} bonds in portfolio`
           : "No bonds in portfolio"}
+      </div>
+      <div>
+        {bonds.map((bond) => (
+          <BondCard key={bond.id} bond={bond} />
+        ))}
       </div>
     </>
   );
