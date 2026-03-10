@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { BondContext } from "../context/BondContext";
 import { useContext } from "react";
+import StatusBadge from "../components/StatusBadge";
 
 const currency = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -65,7 +66,7 @@ export default function BondDetail() {
         <div className="bond-card">
           <h2>Bond details</h2>
           <p>
-            <strong>Status</strong> {bond.status}
+            <strong>Status</strong> <StatusBadge status={bond.status} />
           </p>
           <p>
             <strong>Bond amount</strong> {currencyWhole.format(bond.bondAmount)}
