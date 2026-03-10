@@ -1,6 +1,11 @@
-import { useState } from "react";
-import type { Principal, Obligee } from "../types";
+import { useContext, useState } from "react";
+import type { Principal, Obligee, Bond } from "../types";
+import { generateBondNumber } from "../data/mockData";
+import { BondContext } from "../context/BondContext";
+import { useNavigate } from "react-router-dom";
 export default function BondApplication() {
+  const { createBond } = useContext(BondContext)!;
+  const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [principal, setPrincipal] = useState<Principal>({
     name: "",
@@ -216,7 +221,9 @@ export default function BondApplication() {
               </p>
               <p>
                 <strong>Effective date</strong>{" "}
-                {effectiveDate ? new Date(effectiveDate).toLocaleDateString() : "—"}
+                {effectiveDate
+                  ? new Date(effectiveDate).toLocaleDateString()
+                  : "—"}
               </p>
             </div>
           </div>
@@ -225,7 +232,22 @@ export default function BondApplication() {
   }
 
   function handleIssueBond() {
-    alert("Bond issued successfully");
+    const bond: Bond = {
+      id: generateBondNumber(),
+      bondAmount: boundAmount,
+      premium: premiumCost,
+      effectiveDate: new Date(effectiveDate),
+      expirationDate: new Date(
+        new Date(effectiveDate).setFullYear(
+          new Date(effectiveDate).getFullYear() + 1,
+        ),
+      ),
+      principal: principal,
+      obligee: obligee,
+      status: "Underwriting",
+    };
+    createBond(bond);
+    navigate(`/bonds/${bond.id}`);
   }
 
   function displayStepButtons() {
