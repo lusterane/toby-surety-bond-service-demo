@@ -1,17 +1,32 @@
 import { useState } from "react";
+import type { Principal, Obligee } from "../types";
 export default function BondApplication() {
   const [step, setStep] = useState(1);
-  const [principal, setPrincipal] = useState<{
-    companyName: string;
-    address: string;
-    creditScore: number | "";
-    yearsInBusiness: number | "";
-  }>({
-    companyName: "",
+  const [principal, setPrincipal] = useState<Principal>({
+    name: "",
     address: "",
     creditScore: 700,
     yearsInBusiness: 5,
   });
+  const [obligee, setObligee] = useState<Obligee>({
+    name: "",
+    address: "",
+  });
+  const [boundAmount, setBoundAmount] = useState<number>(100000);
+  const [effectiveDate, setEffectiveDate] = useState(
+    new Date().toISOString().split("T")[0],
+  );
+
+  const PREMIUM_RATE = 0.025; // 2.5%
+  const premiumCost = boundAmount * PREMIUM_RATE;
+  const formatDollars = (n: number) =>
+    new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(n);
+
   function displayStep() {
     switch (step) {
       case 1:
@@ -29,20 +44,20 @@ export default function BondApplication() {
         return (
           <form>
             <div>
-              <label htmlFor="name">Company Name</label>
+              <label>Company Name</label>
               <input
                 type="text"
                 id="companyName"
-                value={principal.companyName}
+                value={principal.name}
                 onChange={(e) =>
-                  setPrincipal({ ...principal, companyName: e.target.value })
+                  setPrincipal({ ...principal, name: e.target.value })
                 }
                 placeholder="e.g. Construction LLC"
                 name="name"
               />
             </div>
             <div>
-              <label htmlFor="address">Address</label>
+              <label>Address</label>
               <input
                 type="text"
                 id="address"
@@ -55,17 +70,15 @@ export default function BondApplication() {
               />
             </div>
             <div>
-              <label htmlFor="creditScore">Credit Score</label>
+              <label>Credit Score</label>
               <input
                 type="number"
                 id="creditScore"
                 value={principal.creditScore}
-                min={300}
-                max={850}
                 onChange={(e) => {
                   const raw = e.target.value;
                   if (raw === "") {
-                    setPrincipal({ ...principal, creditScore: "" });
+                    setPrincipal({ ...principal, creditScore: 0 });
                   } else {
                     const n = Number(raw);
                     if (!Number.isNaN(n)) {
@@ -77,7 +90,7 @@ export default function BondApplication() {
               />
             </div>
             <div>
-              <label htmlFor="yearsInBusiness">Years in Business</label>
+              <label>Years in Business</label>
               <input
                 type="number"
                 id="yearsInBusiness"
@@ -87,7 +100,7 @@ export default function BondApplication() {
                 onChange={(e) => {
                   const raw = e.target.value;
                   if (raw === "") {
-                    setPrincipal({ ...principal, yearsInBusiness: "" });
+                    setPrincipal({ ...principal, yearsInBusiness: 0 });
                   } else {
                     const n = Number(raw);
                     if (!Number.isNaN(n)) {
@@ -104,8 +117,63 @@ export default function BondApplication() {
         return (
           <form>
             <div>
-              <label htmlFor="bondAmount">Bond Amount</label>
-              <input type="number" id="bondAmount" name="bondAmount" />
+              <label>Bond Amount</label>
+              <input
+                type="number"
+                id="bondAmount"
+                name="bondAmount"
+                min={0}
+                value={boundAmount === 0 ? "" : boundAmount}
+                onChange={(e) => {
+                  const raw = e.target.value;
+                  if (raw === "") {
+                    setBoundAmount(0);
+                  } else {
+                    const n = Number(raw);
+                    if (!Number.isNaN(n) && n >= 0) setBoundAmount(n);
+                  }
+                }}
+              />
+              <p
+                style={{
+                  marginTop: "0.25rem",
+                  color: "var(--muted)",
+                  fontSize: "0.9rem",
+                }}
+              >
+                Bond amount: {formatDollars(boundAmount)}. Premium cost (
+                {PREMIUM_RATE * 100}%): {formatDollars(premiumCost)}.
+              </p>
+            </div>
+            <div>
+              <label>Obligee Name</label>
+              <input
+                type="text"
+                id="name"
+                value={obligee.name}
+                onChange={(e) =>
+                  setObligee({ ...obligee, name: e.target.value })
+                }
+              />
+            </div>
+            <div>
+              <label>Obligee Address</label>
+              <input
+                type="text"
+                id="address"
+                value={obligee.address}
+                onChange={(e) =>
+                  setObligee({ ...obligee, address: e.target.value })
+                }
+              />
+            </div>
+            <div>
+              <label>Effective Date</label>
+              <input
+                type="date"
+                value={effectiveDate}
+                onChange={(e) => setEffectiveDate(e.target.value)}
+              />
             </div>
           </form>
         );
@@ -113,7 +181,7 @@ export default function BondApplication() {
         return (
           <form>
             <div>
-              <label htmlFor="review">Review</label>
+              <label>Review</label>
               <input type="text" id="review" name="review" />
             </div>
           </form>
@@ -130,14 +198,29 @@ export default function BondApplication() {
       case 1:
         return (
           <>
-            <button onClick={() => setStep((prev) => prev + 1)}>Next</button>
+            <button
+              disabled={
+                !principal.name ||
+                !principal.address ||
+                !principal.creditScore ||
+                !principal.yearsInBusiness
+              }
+              onClick={() => setStep((prev) => prev + 1)}
+            >
+              Next
+            </button>
           </>
         );
       case 2:
         return (
           <>
             <button onClick={() => setStep((prev) => prev - 1)}>Back</button>{" "}
-            <button onClick={() => setStep((prev) => prev + 1)}>Next</button>
+            <button
+              disabled={!obligee.name || !obligee.address || !effectiveDate}
+              onClick={() => setStep((prev) => prev + 1)}
+            >
+              Next
+            </button>
           </>
         );
       case 3:

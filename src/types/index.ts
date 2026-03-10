@@ -19,7 +19,6 @@ export type BondStatus =
   | "Expired";
 
 export type Principal = {
-  id: string;
   name: string;
   address: string;
   creditScore: number;
@@ -27,7 +26,6 @@ export type Principal = {
 };
 
 export type Obligee = {
-  id: string;
   name: string;
   address: string;
 };
