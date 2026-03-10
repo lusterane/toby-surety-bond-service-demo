@@ -22,7 +22,7 @@ export default function BondDetail() {
   if (!bond) {
     return (
       <div>
-        <Link to="/">← Back to Dashboard</Link>
+        <Link to="/">← Back to Bond Portfolio</Link>
         <p>Bond not found.</p>
       </div>
     );
@@ -31,7 +31,7 @@ export default function BondDetail() {
   return (
     <div className="bond-detail">
       <Link to="/" className="bond-detail-back">
-        ← Back to Dashboard
+        ← Back to Bond Portfolio
       </Link>
       <h1 className="bond-detail-title">Bond {bond.id}</h1>
 

@@ -9,7 +9,7 @@ export default function Sidebar() {
       <nav>
         <NavLink to="/" end>
           <span className="nav-icon">&#9632;</span>
-          Dashboard
+          Bond Portfolio
         </NavLink>
         <NavLink to="/underwriting">
           <span className="nav-icon">&#9878;</span>

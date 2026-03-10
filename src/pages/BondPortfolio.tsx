@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { BondContext } from "../context/BondContext";
 import BondCard from "../components/BondCard";
-export default function Dashboard() {
+export default function BondPortfolio() {
   const { bonds } = useContext(BondContext)!;
   return (
     <div className="dashboard">
