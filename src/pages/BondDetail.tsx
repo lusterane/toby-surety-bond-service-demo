@@ -1,21 +1,81 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { BondContext } from "../context/BondContext";
 import { useContext } from "react";
+
+const currency = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+});
+
 export default function BondDetail() {
   const { id } = useParams();
   const { findBondById } = useContext(BondContext)!;
   const bond = findBondById(id!);
+
+  if (!bond) {
+    return (
+      <div>
+        <Link to="/">← Back to Dashboard</Link>
+        <p>Bond not found.</p>
+      </div>
+    );
+  }
+
   return (
-    <div>
-      <h1>Bond Detail</h1>
-      <p>{bond?.id}</p>
-      <p>{bond?.principal.name}</p>
-      <p>{bond?.obligee.name}</p>
-      <p>{bond?.status}</p>
-      <p>{bond?.bondAmount}</p>
-      <p>{bond?.premium}</p>
-      <p>{bond?.effectiveDate.toLocaleDateString()}</p>
-      <p>{bond?.expirationDate.toLocaleDateString()}</p>
+    <div className="bond-detail">
+      <Link to="/" className="bond-detail-back">
+        ← Back to Dashboard
+      </Link>
+      <h1 className="bond-detail-title">Bond {bond.id}</h1>
+
+      <div className="bond-detail-cards">
+        <div className="bond-card">
+          <h2>Principal</h2>
+          <p>
+            <strong>Name</strong> {bond.principal.name}
+          </p>
+          <p>
+            <strong>Address</strong> {bond.principal.address}
+          </p>
+          <p>
+            <strong>Credit score</strong> {bond.principal.creditScore}
+          </p>
+          <p>
+            <strong>Years in business</strong> {bond.principal.yearsInBusiness}
+          </p>
+        </div>
+
+        <div className="bond-card">
+          <h2>Obligee</h2>
+          <p>
+            <strong>Name</strong> {bond.obligee.name}
+          </p>
+          <p>
+            <strong>Address</strong> {bond.obligee.address}
+          </p>
+        </div>
+
+        <div className="bond-card">
+          <h2>Bond details</h2>
+          <p>
+            <strong>Status</strong> {bond.status}
+          </p>
+          <p>
+            <strong>Bond amount</strong> {currency.format(bond.bondAmount)}
+          </p>
+          <p>
+            <strong>Premium</strong> {currency.format(bond.premium)}
+          </p>
+          <p>
+            <strong>Effective date</strong>{" "}
+            {bond.effectiveDate.toLocaleDateString()}
+          </p>
+          <p>
+            <strong>Expiration date</strong>{" "}
+            {bond.expirationDate.toLocaleDateString()}
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
