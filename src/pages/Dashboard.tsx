@@ -1,16 +1,15 @@
-import { useState } from "react";
+import { useContext } from "react";
+import { BondContext } from "../context/BondContext";
 export default function Dashboard() {
-  const [bonds, setBonds] = useState([]);
+  const bonds = useContext(BondContext);
   return (
     <>
       <h1>Bond Portfolio</h1>
-      <div>{bonds.length} bonds in portfolio</div>
-      {/* {bonds.map((bond) => (
-        <div key={bond.id}>
-          <h2>{bond.name}</h2>
-          <p>{bond.description}</p>
-        </div>
-      ))} */}
+      <div>
+        {bonds.length
+          ? `${bonds.length} bonds in portfolio`
+          : "No bonds in portfolio"}
+      </div>
     </>
   );
 }
