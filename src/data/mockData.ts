@@ -60,23 +60,4 @@ export const initialBonds: Bond[] = [
     status: "Underwriting",
     bondType: "Performance",
   },
-  {
-    id: "SB-2026-004",
-    bondAmount: 75000,
-    premium: 0,
-    effectiveDate: new Date(),
-    expirationDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
-    principal: {
-      name: "James Doe",
-      address: "101 Oak St, Frisco TX, USA",
-      creditScore: 780,
-      yearsInBusiness: 12,
-    },
-    obligee: {
-      name: "Collin County",
-      address: "2300 Cool Rd, McKinney TX, USA",
-    },
-    status: "Underwriting",
-    bondType: "Performance",
-  },
 ];
