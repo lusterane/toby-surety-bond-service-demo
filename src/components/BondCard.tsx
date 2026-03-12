@@ -27,6 +27,11 @@ export default function BondCard({ bond, linkPrefix = "/bonds" }: { bond: Bond; 
             {bond.bondType && <p><span className="bond-card-label">Bond type</span> {bond.bondType}</p>}
           </div>
         </div>
+        {bond.status === "Information Requested" && bond.infoRequestMessage && (
+          <div className="bond-card-info-request">
+            <p><span className="bond-card-label">Information requested</span> {bond.infoRequestMessage}</p>
+          </div>
+        )}
       </article>
     </Link>
   );

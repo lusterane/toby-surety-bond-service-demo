@@ -279,6 +279,18 @@ a {
   font-weight: 600;
 }
 
+.bond-card-info-request {
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  background: var(--color-surface-elevated);
+  border-radius: 6px;
+  border-left: 3px solid var(--color-primary);
+}
+
+.bond-card-info-request p {
+  margin: 0;
+}
+
 /* Bond detail page */
 .bond-detail {
   max-width: 720px;

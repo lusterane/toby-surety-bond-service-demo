@@ -35,16 +35,3 @@ export type Obligee = {
   name: string;
   address: string;
 };
-
-export type RiskRating = "Low" | "Medium" | "High";
-
-export type RiskAssessment = {
-  score: number;
-  rating: RiskRating;
-  suggestedPremiumRate: number;
-  breakdown: {
-    creditScoreComponent: number;
-    yearsInBusinessComponent: number;
-    bondAmountComponent: number;
-  };
-};
