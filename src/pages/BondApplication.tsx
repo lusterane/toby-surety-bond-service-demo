@@ -25,8 +25,6 @@ export default function BondApplication() {
     new Date().toISOString().split("T")[0],
   );
 
-  const PREMIUM_RATE = 0.025; // 2.5%
-  const premiumCost = boundAmount * PREMIUM_RATE;
   const formatDollars = (n: number) =>
     new Intl.NumberFormat("en-US", {
       style: "currency",
@@ -234,11 +232,6 @@ export default function BondApplication() {
                   </div>
                 </div>
               </div>
-              <div className="bond-application-premium-banner">
-                Estimated Premium: {formatDollars(premiumCost)} (
-                {(PREMIUM_RATE * 100).toFixed(1)}% of{" "}
-                {formatDollars(boundAmount)})
-              </div>
             </form>
           </div>
         );
@@ -288,14 +281,6 @@ export default function BondApplication() {
                 </p>
               </div>
             </div>
-            <div className="bond-application-premium-banner bond-application-premium-banner--review">
-              <span className="bond-application-premium-banner__label">
-                Annual Premium (Estimated)
-              </span>
-              <span className="bond-application-premium-banner__amount">
-                {formatDollars(premiumCost)}
-              </span>
-            </div>
           </>
         );
     }
@@ -305,7 +290,7 @@ export default function BondApplication() {
     const bond: Bond = {
       id: generateBondNumber(),
       bondAmount: boundAmount,
-      premium: premiumCost,
+      premium: 0,
       effectiveDate: new Date(effectiveDate),
       expirationDate: new Date(
         new Date(effectiveDate).setFullYear(
