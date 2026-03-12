@@ -154,7 +154,7 @@ a {
 
 /* Dashboard */
 .dashboard {
-  max-width: 900px;
+  max-width: 1100px;
 }
 
 .dashboard-header {
@@ -280,20 +280,23 @@ a {
 }
 
 .bond-card-info-request {
-  margin-top: 0.75rem;
-  padding: 0.75rem;
-  background: var(--color-surface-elevated);
-  border-radius: 6px;
-  border-left: 3px solid var(--color-primary);
+  margin-top: 1rem;
+  padding: 0.875rem 1rem;
+  background: rgba(124, 58, 237, 0.06);
+  border: 1px solid rgba(124, 58, 237, 0.15);
+  border-left: 3px solid #7c3aed;
+  border-radius: var(--radius-sm);
 }
 
 .bond-card-info-request p {
   margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.6;
 }
 
 /* Bond detail page */
 .bond-detail {
-  max-width: 720px;
+  max-width: 80vw;
 }
 
 .bond-detail-back {
@@ -317,8 +320,14 @@ a {
 
 .bond-detail-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: 1fr 1fr;
   gap: 1rem;
+}
+
+.bond-detail-cards > .bond-card:nth-child(3) {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  align-self: start;
 }
 
 .bond-detail .bond-card {
@@ -1031,6 +1040,11 @@ a {
 
   .bond-detail-cards {
     grid-template-columns: 1fr;
+  }
+
+  .bond-detail-cards > .bond-card:nth-child(3) {
+    grid-column: auto;
+    grid-row: auto;
   }
 
   .bond-detail .bond-card {
