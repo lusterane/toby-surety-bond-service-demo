@@ -5,7 +5,7 @@
 A simple dashboard to explore how surety bond processes work. Built to understand the flow from both sides:
 
 - **Principals** — view bonds, apply for new ones, see status
-- **Underwriters** — review applications and risk proposals
+- **Underwriters** — review applications and suggest premiums
 
 React + TypeScript + Vite.
 
