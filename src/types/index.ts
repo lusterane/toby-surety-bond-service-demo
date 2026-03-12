@@ -1,3 +1,5 @@
+export type BondType = "Bid" | "Performance" | "Payment" | "License & Permit" | "Court";
+
 export type Bond = {
   id: string;
   bondAmount: number;
@@ -7,6 +9,9 @@ export type Bond = {
   principal: Principal;
   obligee: Obligee;
   status: BondStatus;
+  bondType: BondType;
+  declineReason?: string;
+  infoRequestMessage?: string;
 };
 
 export type BondStatus =
@@ -14,9 +19,10 @@ export type BondStatus =
   | "Underwriting"
   | "Active"
   | "Claim Filed"
-  | "Renewned"
+  | "Renewed"
   | "Cancelled"
-  | "Expired";
+  | "Expired"
+  | "Information Requested";
 
 export type Principal = {
   name: string;

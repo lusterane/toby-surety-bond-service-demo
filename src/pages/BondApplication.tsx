@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import type { Principal, Obligee, Bond } from "../types";
+import type { Principal, Obligee, Bond, BondType } from "../types";
 import { generateBondNumber } from "../data/mockData";
 import { BondContext } from "../context/BondContext";
 import { useToast } from "../context/ToastContext";
@@ -19,6 +19,7 @@ export default function BondApplication() {
     name: "",
     address: "",
   });
+  const [bondType, setBondType] = useState<BondType>("Performance");
   const [boundAmount, setBoundAmount] = useState<number>(100000);
   const [effectiveDate, setEffectiveDate] = useState(
     new Date().toISOString().split("T")[0],
@@ -149,6 +150,22 @@ export default function BondApplication() {
               <div className="bond-application-form-section">
                 <div className="bond-application-form-row">
                   <div className="bond-application-form-group bond-application-form-group--full">
+                    <label htmlFor="bondType">Bond Type</label>
+                    <select
+                      id="bondType"
+                      value={bondType}
+                      onChange={(e) => setBondType(e.target.value as BondType)}
+                    >
+                      <option value="Bid">Bid</option>
+                      <option value="Performance">Performance</option>
+                      <option value="Payment">Payment</option>
+                      <option value="License & Permit">License &amp; Permit</option>
+                      <option value="Court">Court</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="bond-application-form-row">
+                  <div className="bond-application-form-group bond-application-form-group--full">
                     <label htmlFor="bondAmount">Bond Amount</label>
                     <div className="bond-application-form-currency">
                       <input
@@ -258,6 +275,9 @@ export default function BondApplication() {
               <div className="bond-card">
                 <h2>Bond details</h2>
                 <p>
+                  <strong>Bond type</strong> {bondType}
+                </p>
+                <p>
                   <strong>Bond amount</strong> {formatDollars(boundAmount)}
                 </p>
                 <p>
@@ -295,6 +315,7 @@ export default function BondApplication() {
       principal: principal,
       obligee: obligee,
       status: "Underwriting",
+      bondType: bondType,
     };
     createBond(bond);
     showToast("Bond submitted to underwriting queue successfully.");

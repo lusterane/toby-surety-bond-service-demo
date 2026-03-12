@@ -5,9 +5,10 @@ const statusSlug: Record<BondStatus, string> = {
   Underwriting: "underwriting",
   Active: "active",
   "Claim Filed": "claim-filed",
-  Renewned: "renewed",
+  Renewed: "renewed",
   Cancelled: "cancelled",
   Expired: "expired",
+  "Information Requested": "information-requested",
 };
 
 export default function StatusBadge({ status }: { status: BondStatus }) {

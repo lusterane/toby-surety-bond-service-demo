@@ -4,7 +4,7 @@ import BondCard from "../components/BondCard";
 
 export default function UnderwriterDashboard() {
   const { bonds } = useContext(BondContext)!;
-  const pending = bonds.filter((b) => b.status === "Underwriting");
+  const pending = bonds.filter((b) => b.status === "Underwriting" || b.status === "Information Requested");
 
   return (
     <div className="dashboard">

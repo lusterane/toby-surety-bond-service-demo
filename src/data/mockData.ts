@@ -20,6 +20,7 @@ export const initialBonds: Bond[] = [
     },
     obligee: { name: "Company LLC", address: "456 St, Plano TX, USA" },
     status: "Active",
+    bondType: "Performance",
   },
   {
     id: "SB-2026-002",
@@ -38,6 +39,7 @@ export const initialBonds: Bond[] = [
       address: "101 St, Plano TX, USA",
     },
     status: "Active",
+    bondType: "Performance",
   },
   {
     id: "SB-2026-003",
@@ -56,6 +58,7 @@ export const initialBonds: Bond[] = [
       address: "123 Place St, Dallas TX, USA",
     },
     status: "Underwriting",
+    bondType: "Performance",
   },
   {
     id: "SB-2026-004",
@@ -74,5 +77,6 @@ export const initialBonds: Bond[] = [
       address: "2300 Cool Rd, McKinney TX, USA",
     },
     status: "Underwriting",
+    bondType: "Performance",
   },
 ];

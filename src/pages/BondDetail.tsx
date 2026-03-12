@@ -68,6 +68,11 @@ export default function BondDetail() {
           <p>
             <strong>Status</strong> <StatusBadge status={bond.status} />
           </p>
+          {bond.bondType && (
+            <p>
+              <strong>Bond type</strong> {bond.bondType}
+            </p>
+          )}
           <p>
             <strong>Bond amount</strong> {currencyWhole.format(bond.bondAmount)}
           </p>

@@ -24,6 +24,7 @@ export default function BondCard({ bond, linkPrefix = "/bonds" }: { bond: Bond; 
           </div>
           <div className="bond-card-col bond-card-col-right">
             <p><span className="bond-card-label">Bond amount</span> {currencyWhole.format(bond.bondAmount)}</p>
+            {bond.bondType && <p><span className="bond-card-label">Bond type</span> {bond.bondType}</p>}
           </div>
         </div>
       </article>

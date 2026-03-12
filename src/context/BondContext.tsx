@@ -8,6 +8,7 @@ type BondContextValue = {
   createBond: (bond: Bond) => void;
   updateBondStatus: (id: string, status: BondStatus) => void;
   updateBondPremium: (id: string, premium: number) => void;
+  updateBond: (id: string, updates: Partial<Bond>) => void;
 };
 
 export const BondContext = createContext<BondContextValue | null>(null);
@@ -28,9 +29,14 @@ export function BondProvider({ children }: { children: React.ReactNode }) {
       prev.map((b) => (b.id === id ? { ...b, premium } : b))
     );
   };
+  const updateBond = (id: string, updates: Partial<Bond>) => {
+    setBonds((prev) =>
+      prev.map((b) => (b.id === id ? { ...b, ...updates } : b))
+    );
+  };
   return (
     <BondContext.Provider
-      value={{ bonds, findBondById, createBond, updateBondStatus, updateBondPremium }}
+      value={{ bonds, findBondById, createBond, updateBondStatus, updateBondPremium, updateBond }}
     >
       {children}
     </BondContext.Provider>
