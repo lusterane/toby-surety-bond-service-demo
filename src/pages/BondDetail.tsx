@@ -87,6 +87,13 @@ export default function BondDetail() {
             <strong>Expiration date</strong>{" "}
             {bond.expirationDate.toLocaleDateString()}
           </p>
+          {bond.status === "Information Requested" && bond.infoRequestMessage && (
+            <div className="bond-card-info-request">
+              <p>
+                <strong>Information requested</strong> {bond.infoRequestMessage}
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>
