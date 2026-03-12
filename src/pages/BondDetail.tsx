@@ -94,6 +94,13 @@ export default function BondDetail() {
               </p>
             </div>
           )}
+          {bond.status === "Cancelled" && bond.declineReason && (
+            <div className="bond-card-info-request">
+              <p>
+                <strong>Cancellation reason</strong> {bond.declineReason}
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>
