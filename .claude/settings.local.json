@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(ls -la /Users/tobychow/Projects/toby-surety-bond-service-demo/src/*.css | head -10)"
     ]
   }
 }

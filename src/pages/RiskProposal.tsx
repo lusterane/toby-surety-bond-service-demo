@@ -23,10 +23,11 @@ export default function RiskProposal() {
   const bond = findBondById(id!);
 
   const { showToast } = useToast();
-  const [premiumRate, setPremiumRate] = useState<number>(2.5);
+  const [premiumRateInput, setPremiumRateInput] = useState<string>("2.5");
 
+  const premiumRate = parseFloat(premiumRateInput);
   const calculatedPremium = bond
-    ? Math.round(bond.bondAmount * (premiumRate / 100))
+    ? Math.round(bond.bondAmount * ((Number.isNaN(premiumRate) ? 0 : premiumRate) / 100))
     : 0;
 
   if (!bond || bond.status !== "Underwriting") {
@@ -111,8 +112,8 @@ export default function RiskProposal() {
               type="number"
               min={0}
               step={0.1}
-              value={premiumRate}
-              onChange={(e) => setPremiumRate(Number(e.target.value))}
+              value={premiumRateInput}
+              onChange={(e) => setPremiumRateInput(e.target.value)}
             />
           </div>
           <p style={{ marginTop: "0.75rem" }}>
